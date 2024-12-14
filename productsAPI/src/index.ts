@@ -4,10 +4,10 @@ import config from 'config';
 import { connectToDatabase } from './utils/db/connectToDB.js';
 import { logger } from './utils/logger.js';
 
-import { productRouter } from './routes/products.router.js';
-import { sessionRouter } from './routes/sessions.router.js';
-import { userRouter } from './routes/users.router.js';
-import { healthcheckRouter } from './routes/healthcheck.router.js';
+import { productRouter } from './routes/products.routes.js';
+import { sessionRouter } from './routes/sessions.routes.js';
+import { userRouter } from './routes/users.routes.js';
+import { healthcheckRouter } from './routes/healthcheck.routes.js';
 import { ExpressError } from './utils/ExpressError.js';
 
 const port = config.get<number>('port');
@@ -15,10 +15,12 @@ const dbUri = config.get<string>('dbUri');
 
 const app = express();
 
+app.use(express.json())
+
 // Routing
 app.use(productRouter);
 app.use(sessionRouter);
-app.use(userRouter);
+app.use('/api/users', userRouter);
 app.use('/healthcheck', healthcheckRouter);
 
 // Error handling middleware to handle all errors thrown in the application
@@ -28,7 +30,7 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   const message = err.message || 'Oh No, Something Went Wrong!';
   
   logger.error(`[ERROR] ${statusCode} - ${message}`);
-  logger.error(err.stack)
+  // logger.error(err.stack)
 
   if (req.accepts('html')) {
     res.status(statusCode).send(`${statusCode} - ${message}`)

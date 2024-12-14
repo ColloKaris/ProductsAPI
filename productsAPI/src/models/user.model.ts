@@ -5,7 +5,7 @@ export interface User {
   name: string;
   password: string;
   email: string;
-  createdAt: Date;
+  createdAt?: Date;
   updatedAt: Date;
 }
 
@@ -13,7 +13,7 @@ export interface User {
 export const userSchema = {
   $jsonSchema: {
     bsonType: 'object',
-    required: ['name', 'password', 'passwordConfirmation', 'email'],
+    required: ['name', 'password', 'email', 'createdAt', 'updatedAt'],
     properties: {
       _id: {},
       name: {

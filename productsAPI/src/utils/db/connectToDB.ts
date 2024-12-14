@@ -6,7 +6,7 @@ import { Session } from '../../models/session.model.js';
 import { User } from '../../models/user.model.js';
 
 // Hold references to collections
-const collections: {
+export const collections: {
   products?: mongodb.Collection<Product>;
   sessions?: mongodb.Collection<Session>;
   users?: mongodb.Collection<User>;
