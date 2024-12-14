@@ -1,9 +1,9 @@
 import * as mongodb from 'mongodb';
 
 import { applySchemaValidation } from './applySchemaValidation.js';
-import { Product } from '../../models/product.js';
-import { Session } from '../../models/session.js';
-import { User } from '../../models/user.js';
+import { Product } from '../../models/product.model.js';
+import { Session } from '../../models/session.model.js';
+import { User } from '../../models/user.model.js';
 
 // Hold references to collections
 const collections: {
@@ -11,7 +11,6 @@ const collections: {
   sessions?: mongodb.Collection<Session>;
   users?: mongodb.Collection<User>;
 } = {};
-
 
 // Connecting to the database
 export async function connectToDatabase(dbUri: string) {

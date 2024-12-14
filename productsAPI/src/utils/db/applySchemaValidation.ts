@@ -1,7 +1,7 @@
 import * as mongodb from 'mongodb';
-import {productSchema } from '../../models/product.js';
-import {sessionSchema } from '../../models/session.js';
-import {userSchema } from '../../models/user.js';
+import { productSchema } from '../../models/product.model.js';
+import { sessionSchema } from '../../models/session.model.js';
+import { userSchema } from '../../models/user.model.js';
 
 // Function to apply schema validation for different collections
 export async function applySchemaValidation(db: mongodb.Db) {
