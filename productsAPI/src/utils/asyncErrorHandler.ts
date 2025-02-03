@@ -1,4 +1,4 @@
-// Utility to simply error handling for asynchronous functions
+// Utility to simplify error handling for asynchronous functions
 import { Request, Response, NextFunction } from 'express';
 
 type AsyncRequestHandler = (req: Request, res: Response, next: NextFunction) => Promise<void>

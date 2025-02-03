@@ -15,7 +15,10 @@ export const userSchema = {
     bsonType: 'object',
     required: ['name', 'password', 'email', 'createdAt', 'updatedAt'],
     properties: {
-      _id: {},
+      _id: {
+        bsonType: 'objectId',
+        description: 'Unique identifier for the session'
+      },
       name: {
         bsonType: 'string',
         description: 'Name for the user',
