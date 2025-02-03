@@ -19,7 +19,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 // Routing
-//app.use(productRouter);
+app.use('/api/products',productRouter);
 app.use('/api/sessions',sessionRouter);
 app.use('/api/users', userRouter);
 app.use('/healthcheck', healthcheckRouter);
