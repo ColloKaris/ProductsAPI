@@ -32,7 +32,7 @@ This is a RESTful API built using Node.js, Express, TypeScript, MongoDB, and JWT
 ## API Endpoints
 ### Products
 | Method | Endpoint                      | Description                | Auth Required |
-|--------|-------------------------------|----------------------------|------------=--|
+|--------|-------------------------------|----------------------------|---------------|
 | POST   | `/api/products/`              | Create a new Product       | ✅ |
 | GET    | `/api/products/:productId`    | Get a single product       | ✅ |
 | PUT    | `/api/products/:productId`    | Update a product           | ✅ |
