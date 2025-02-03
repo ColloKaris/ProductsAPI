@@ -1,8 +1,11 @@
+import bcrypt from 'bcrypt';
+import * as mongodb from 'mongodb';
+
 import { User } from '../models/user.model.js';
 import { collections } from '../utils/db/connectToDB.js';
 import { hashPassword } from '../utils/passwordUtils.js';
 import { ExpressError } from '../utils/ExpressError.js';
-import bcrypt from 'bcrypt';
+
 
 export async function createUser(user: User) {
   const emailExists = await collections.users?.findOne({ email: user.email });
@@ -31,3 +34,8 @@ export async function validatePassword(validUser: User, password: string) {
     updatedAt: validUser.updatedAt,
   };
 };
+
+export async function findUser(userId: string) {
+  const result = await collections.users?.findOne({_id: new mongodb.ObjectId(userId)});
+  return result;
+}

@@ -2,7 +2,11 @@ import { Request, Response } from 'express';
 import { validatePassword, validateUser } from '../services/user.service.js';
 import { signJwt } from '../utils/jwt.utils.js';
 import { addTimestamps } from '../utils/db/addTimeStamps.js';
-import { createSession, findSessions } from '../services/session.service.js';
+import {
+  createSession,
+  findSessions,
+  updateSession,
+} from '../services/session.service.js';
 import { ExpressError } from '../utils/ExpressError.js';
 import config from 'config';
 
@@ -71,7 +75,7 @@ export const createUserSessionHandler = async (req: Request, res: Response) => {
     maxAge: 365 * 24 * 60 * 60 * 1000, // 1 year
   });
 
-  res.status(200).json({ message: 'Successfully created a User Session'});
+  res.status(200).json({ message: 'Successfully created a User Session' });
   return;
 };
 
@@ -83,3 +87,25 @@ export const getUserSessionsHandler = async (req: Request, res: Response) => {
   res.send(sessions);
   return;
 };
+
+export async function deleteSessionHandler(req: Request, res: Response) {
+  // update the session setting the
+  const userId = res.locals.user.userId;
+  const result = await updateSession(userId);
+
+  if (
+    result?.acknowledged &&
+    result.matchedCount > 0 &&
+    result.modifiedCount > 0
+  ) {
+    res.clearCookie('accessToken');
+    res.clearCookie('refreshToken');
+    res
+      .status(200)
+      .json({
+        message: 'Successfully logged out and deleted all active Sessions',
+      });
+  } else {
+    res.status(500).json({ message: 'Could not Logout User' });
+  }
+}
